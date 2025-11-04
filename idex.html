@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Isak Loke</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --accent: #38bdf8;
+      --text: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .wrapper {
+      text-align: center;
+      animation: fadein 1.2s ease forwards;
+    }
+    h1 {
+      font-size: clamp(32px, 4vw + 10px, 60px);
+      margin: 0 0 0.3em;
+      letter-spacing: 0.03em;
+    }
+    p {
+      color: #94a3b8;
+      margin-bottom: 1.5em;
+      font-size: 18px;
+    }
+    a.button {
+      display: inline-block;
+      padding: 0.7em 1.4em;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+    a.button:hover {
+      background: var(--accent);
+      color: var(--bg);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px #38bdf844;
+    }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Isak Loke</h1>
+    <p>Welcome — explore the group page below.</p>
+    <a href="/group/" class="button">Enter Group Page →</a>
+  </div>
+</body>
+</html>

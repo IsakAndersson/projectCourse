@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Site — Static + Blog Feed</title>
+  <meta name="description" content="A minimal, responsive webpage with a static text area and a blog feed." />
+  <style>
+    :root{
+      --bg:#0f172a;      /* slate-900 */
+      --panel:#111827;   /* gray-900 */
+      --muted:#94a3b8;   /* slate-400 */
+      --text:#e5e7eb;    /* gray-200 */
+      --brand:#22d3ee;   /* cyan-400 */
+      --accent:#38bdf8;  /* sky-400 */
+      --ring:#64748b33;  /* slate ring */
+      --card:#0b1225;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background:radial-gradient(1200px 600px at 80% -10%, #1e293b 0%, transparent 60%) no-repeat var(--bg);
+      color:var(--text);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+
+    header{
+      position:sticky; top:0; z-index:10; backdrop-filter:saturate(160%) blur(6px);
+      background:linear-gradient(180deg, #0b1225cc 0%, #0b122500 100%);
+      border-bottom:1px solid #1f2937;
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 24px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+    .logo{width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg, var(--brand), var(--accent)); box-shadow:0 8px 24px #22d3ee33}
+    .nav a.btn{padding:8px 12px; border:1px solid #1f2937; border-radius:12px; background:#0b1225}
+
+    .hero{padding:56px 24px 12px}
+    .hero h1{font-size:clamp(26px, 3vw + 14px, 44px); line-height:1.15; margin:.2em 0}
+    .hero p{color:var(--muted); max-width:60ch}
+
+    /* Layout */
+    .grid{display:grid; grid-template-columns:340px 1fr; gap:24px}
+    @media (max-width: 960px){ .grid{grid-template-columns:1fr;}}
+
+    /* Panels */
+    .card{background:linear-gradient(180deg, var(--panel), var(--card)); border:1px solid #1f2937; border-radius:18px; box-shadow:0 8px 28px #00000030; overflow:hidden}
+    .card .hd{padding:18px 18px 0; font-weight:700; font-size:18px}
+    .card .bd{padding:18px}
+
+    /* Static text styles */
+    .prose h2{margin:.2em 0 .4em; font-size:22px}
+    .prose p{margin:.6em 0}
+    .prose ul{margin:.5em 0 .5em 1.2em}
+    .prose li{margin:.3em 0}
+    .callout{padding:14px 14px; border-radius:14px; background:#0b1225; border:1px dashed #1f2937}
+
+    /* Blog list */
+    .feed-controls{display:flex; gap:10px; align-items:center; padding:18px 18px 0}
+    .search{flex:1; display:flex; align-items:center; gap:8px; background:#0b1225; border:1px solid #1f2937; border-radius:12px; padding:8px 12px}
+    .search input{flex:1; background:transparent; color:var(--text); border:0; outline:none}
+    .tag{font-size:12px; background:#0b1225; border:1px solid #1f2937; padding:6px 8px; border-radius:999px; cursor:pointer}
+    .tag.is-active{border-color:var(--accent); box-shadow:0 0 0 3px var(--ring)}
+
+    .posts{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; padding:18px}
+    @media (max-width: 960px){ .posts{grid-template-columns:1fr}}
+
+    .post{display:flex; flex-direction:column; gap:8px; padding:16px; border-radius:14px; background:#0b1225; border:1px solid #1f2937}
+    .post h3{margin:0; font-size:18px}
+    .meta{font-size:12px; color:var(--muted)}
+    .post p{margin:0}
+    .post .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
+    .chip{font-size:11px; border:1px solid #1f2937; border-radius:999px; padding:4px 8px; background:#0a0f1f}
+
+    .load-more{display:block; width:100%; text-align:center; margin:8px 18px 22px; padding:12px 14px; border-radius:12px; border:1px solid #1f2937; background:#0b1225; color:var(--text); cursor:pointer}
+    .load-more:hover{border-color:#2a3b52}
+
+    footer{margin:32px 0 60px; text-align:center; color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav container">
+      <div class="brand"><div class="logo" aria-hidden="true"></div> My Site</div>
+      <nav>
+        <a class="btn" href="#static">About</a>
+        <a class="btn" href="#blog">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-label="intro">
+      <h1>Welcome 👋</h1>
+      <p>A clean, responsive template with two areas: a left panel for static text and a right panel for an auto‑rendered blog feed.</p>
+    </section>
+
+    <section class="grid" id="layout">
+      <!-- STATIC TEXT AREA -->
+      <aside id="static" class="card" aria-labelledby="static-title">
+        <div class="hd" id="static-title">About this site</div>
+        <div class="bd prose">
+          <p>This area is for <strong>static content</strong> — write anything you like and it will stay put. Perfect for an about section, contact info, or a welcome message.</p>
+          <div class="callout">
+            <strong>Tip:</strong> You can edit this HTML file and replace the text here. No build step required.
+          </div>
+          <h2>What’s inside?</h2>
+          <ul>
+            <li>Minimal, accessible layout</li>
+            <li>Responsive two‑column grid</li>
+            <li>Client‑side blog feed (filter, search, tags)</li>
+          </ul>
+          <p>Want to connect an external source (RSS/JSON)? Replace the <code>posts</code> array in the script below with a <code>fetch()</code> call. The rendering function will handle the rest.</p>
+        </div>
+      </aside>
+
+      <!-- BLOG FEED AREA -->
+      <section id="blog" class="card" aria-labelledby="blog-title">
+        <div class="hd" id="blog-title">Blog</div>
+
+        <div class="feed-controls">
+          <label class="search" aria-label="Search posts">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.5 18a7.5 7.5 0 1 1 5.303-12.803A7.5 7.5 0 0 1 10.5 18Zm9 2-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <input id="search" type="search" placeholder="Search title or excerpt…" />
+          </label>
+          <button class="tag" data-tag="all" aria-pressed="true">All</button>
+          <button class="tag" data-tag="updates">Updates</button>
+          <button class="tag" data-tag="tutorial">Tutorial</button>
+          <button class="tag" data-tag="notes">Notes</button>
+        </div>
+
+        <div id="posts" class="posts" aria-live="polite" aria-busy="false"></div>
+        <button id="loadMore" class="load-more" hidden>Load more</button>
+      </section>
+    </section>
+
+    <footer>
+      <small>© <span id="year"></span> My Site. Built with plain HTML/CSS/JS.</small>
+    </footer>
+  </main>
+
+  <script>
+    // --- Demo posts (replace with fetch to your CMS/RSS/JSON if desired) ---
+    const posts = [
+      {
+        id: 1,
+        title: "Launching the new site",
+        date: "2025-09-03",
+        tags: ["updates"],
+        excerpt: "A quick tour of the new layout and how the blog feed works.",
+        url: "#"
+      },
+      {
+        id: 2,
+        title: "How to connect an RSS feed",
+        date: "2025-08-22",
+        tags: ["tutorial"],
+        excerpt: "Use fetch() and a tiny proxy to parse RSS as JSON, then render.",
+        url: "#"
+      },
+      {
+        id: 3,
+        title: "Notes on performance",
+        date: "2025-07-18",
+        tags: ["notes"],
+        excerpt: "Some thoughts on front‑end performance budgets and measuring CLS.",
+        url: "#"
+      },
+      {
+        id: 4,
+        title: "Adding tags & search",
+        date: "2025-10-02",
+        tags: ["tutorial","updates"],
+        excerpt: "We added simple client‑side filtering by tag and a search box.",
+        url: "#"
+      },
+      {
+        id: 5,
+        title: "Tiny accessibility checklist",
+        date: "2025-06-15",
+        tags: ["notes"],
+        excerpt: "Landmarks, focus order, labels, color contrast. Start here.",
+        url: "#"
+      },
+      {
+        id: 6,
+        title: "Embed code blocks with copy buttons",
+        date: "2025-09-13",
+        tags: ["tutorial"],
+        excerpt: "A simple progressive‑enhancement approach for code snippets.",
+        url: "#"
+      }
+    ];
+
+    // --- State ---
+    let state = {
+      query: "",
+      tag: "all",
+      page: 1,
+      pageSize: 4
+    };
+
+    const el = {
+      posts: document.getElementById('posts'),
+      loadMore: document.getElementById('loadMore'),
+      search: document.getElementById('search'),
+      year: document.getElementById('year'),
+      tagBtns: Array.from(document.querySelectorAll('.tag'))
+    };
+
+    el.year.textContent = new Date().getFullYear();
+
+    // --- Helpers ---
+    const fmtDate = (iso) => new Date(iso + 'T12:00:00Z').toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+
+    function filteredPosts(){
+      const q = state.query.trim().toLowerCase();
+      const tag = state.tag;
+      return posts
+        .slice()
+        .sort((a,b)=> new Date(b.date) - new Date(a.date))
+        .filter(p => tag === 'all' || p.tags.includes(tag))
+        .filter(p => !q || (p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q)));
+    }
+
+    function render(){
+      const list = filteredPosts();
+      const start = 0;
+      const end = state.page * state.pageSize;
+      const pageItems = list.slice(start, end);
+
+      el.posts.setAttribute('aria-busy','true');
+      el.posts.innerHTML = pageItems.map(p => `
+        <article class="post" tabindex="0">
+          <h3><a href="${p.url}">${p.title}</a></h3>
+          <div class="meta">${fmtDate(p.date)} · ${p.tags.map(t=>`#${t}`).join(' ')}</div>
+          <p>${p.excerpt}</p>
+          <div class="chips">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+        </article>
+      `).join('');
+      el.posts.removeAttribute('aria-busy');
+
+      const more = end < list.length;
+      el.loadMore.hidden = !more;
+    }
+
+    // --- Events ---
+    el.search.addEventListener('input', (e)=>{ state.query = e.target.value; state.page = 1; render(); });
+    el.tagBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.tag = btn.dataset.tag;
+        state.page = 1;
+        el.tagBtns.forEach(b=> b.classList.toggle('is-active', b===btn));
+        render();
+      });
+    });
+    el.loadMore.addEventListener('click', ()=>{ state.page++; render(); });
+
+    // --- Initial render ---
+    render();
+
+    // --- Example: fetch from a JSON endpoint instead of the static array ---
+    // async function loadFromAPI(){
+    //   const res = await fetch('/api/posts.json');
+    //   const data = await res.json();
+    //   posts.splice(0, posts.length, ...data.posts);
+    //   render();
+    // }
+    // loadFromAPI();
+  </script>
+</body>
+</html>
