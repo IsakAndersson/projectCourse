@@ -1,15 +1,11 @@
 ---
 deployment:
   tasks:
-    # Targets
-    - export WEBROOT=/home/silversu/public_html
-    - export GROUPDIR=$WEBROOT/group
+    # Set deployment target (public_html/groupProject)
+    - export DEPLOYDIR=/home/silversu/public_html/groupProject
 
-    # Ensure target dirs exist
-    - /bin/mkdir -p $GROUPDIR
+    # Create the directory if it doesn't exist
+    - /bin/mkdir -p $DEPLOYDIR
 
-    # Deploy site root (groupProject/index.html -> https://isakloke.se/)
-    - /usr/bin/rsync -a --delete --exclude='.git*' index.html $WEBROOT/
-
-    # Deploy /group (groupProject/group/* -> https://isakloke.se/group)
-    - /usr/bin/rsync -a --delete --exclude='.git*' group/ $GROUPDIR/
+    # Sync everything from the repo to the deployment dir
+    - /usr/bin/rsync -a --delete --exclude='.git*' ./ $DEPLOYDIR/
