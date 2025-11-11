@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Site — Static + Blog Feed</title>
+  <title>The Musketeers — Info + Blog Feed</title>
   <meta name="description" content="A minimal, responsive webpage with a static text area and a blog feed." />
   <style>
     :root{
@@ -84,7 +84,7 @@
 <body>
   <header>
     <div class="nav container">
-      <div class="brand"><div class="logo" aria-hidden="true"></div> My Site</div>
+      <div class="brand"><div class="logo" aria-hidden="true"></div> The Musketeers</div>
       <nav>
         <a class="btn" href="#static">About</a>
         <a class="btn" href="#blog">Blog</a>
@@ -95,7 +95,26 @@
   <main class="container">
     <section class="hero" aria-label="intro">
       <h1>Welcome 👋</h1>
-      <p>Here you can follow our project as it evolves.</p>
+      <p>We are group The Musketeers that consists of:</p>
+      <div class="team" style="display:flex; gap:18px; margin-top:18px; flex-wrap:wrap; align-items:flex-start;">
+        <figure style="margin:0; display:flex; flex-direction:column; align-items:center; width:140px;">
+          <img src="images/isak.jpg" alt="Isak Andersson" style="width:120px; height:120px; object-fit:cover; border-radius:14px; border:1px solid #1f2937; box-shadow:0 8px 20px #00000033;">
+          <figcaption style="margin-top:8px; text-align:center; color:var(--muted); font-weight:600; font-size:14px;">Isak Andersson</figcaption>
+          <small style="display:block; text-align:center; color:var(--muted); font-size:12px; margin-top:4px;">Role / short note</small>
+        </figure>
+
+        <figure style="margin:0; display:flex; flex-direction:column; align-items:center; width:140px;">
+          <img src="images/member2.jpg" alt="Member Two" style="width:120px; height:120px; object-fit:cover; border-radius:14px; border:1px solid #1f2937; box-shadow:0 8px 20px #00000033;">
+          <figcaption style="margin-top:8px; text-align:center; color:var(--muted); font-weight:600; font-size:14px;">Member Two</figcaption>
+          <small style="display:block; text-align:center; color:var(--muted); font-size:12px; margin-top:4px;">Role / short note</small>
+        </figure>
+
+        <figure style="margin:0; display:flex; flex-direction:column; align-items:center; width:140px;">
+          <img src="images/member3.jpg" alt="Member Three" style="width:120px; height:120px; object-fit:cover; border-radius:14px; border:1px solid #1f2937; box-shadow:0 8px 20px #00000033;">
+          <figcaption style="margin-top:8px; text-align:center; color:var(--muted); font-weight:600; font-size:14px;">Member Three</figcaption>
+          <small style="display:block; text-align:center; color:var(--muted); font-size:12px; margin-top:4px;">Role / short note</small>
+        </figure>
+      </div>
     </section>
 
     <section class="grid" id="layout">
@@ -103,17 +122,17 @@
       <aside id="static" class="card" aria-labelledby="static-title">
         <div class="hd" id="static-title">About this site</div>
         <div class="bd prose">
-          <p>This area is for <strong>static content</strong> — write anything you like and it will stay put. Perfect for an about section, contact info, or a welcome message.</p>
+          <p>This is where we will present the general information of the project we have chosen.</p>
           <div class="callout">
-            <strong>Tip:</strong> You can edit this HTML file and replace the text here. No build step required.
+            <p>
+              View the project repository on
+              <a href="https://github.com/IsakAndersson/projectCourse" target="_blank" rel="noopener noreferrer">GitHub</a>.
+            </p>
           </div>
-          <h2>What’s inside?</h2>
+          <h2>Header example...</h2>
           <ul>
-            <li>Minimal, accessible layout</li>
-            <li>Responsive two‑column grid</li>
-            <li>Client‑side blog feed (filter, search, tags)</li>
+            <li>Example of a list...</li>
           </ul>
-          <p>Want to connect an external source (RSS/JSON)? Replace the <code>posts</code> array in the script below with a <code>fetch()</code> call. The rendering function will handle the rest.</p>
         </div>
       </aside>
 
@@ -138,7 +157,7 @@
     </section>
 
     <footer>
-      <small>© <span id="year"></span> My Site. Built with plain HTML/CSS/JS.</small>
+      <small>© <span id="year"></span> Our project blog. Built with plain HTML/CSS/JS.</small>
     </footer>
   </main>
 
@@ -147,50 +166,18 @@
     const posts = [
       {
         id: 1,
-        title: "Launching the new site",
-        date: "2025-09-03",
+        title: "Getting started with the project plan.",
+        date: "2025-11-11",
         tags: ["updates"],
-        excerpt: "A quick tour of the new layout and how the blog feed works.",
+        excerpt: "Here we should probably write something about our project plan...",
         url: "#"
       },
       {
         id: 2,
-        title: "How to connect an RSS feed",
-        date: "2025-08-22",
-        tags: ["tutorial"],
-        excerpt: "Use fetch() and a tiny proxy to parse RSS as JSON, then render.",
-        url: "#"
-      },
-      {
-        id: 3,
-        title: "Notes on performance",
-        date: "2025-07-18",
-        tags: ["notes"],
-        excerpt: "Some thoughts on front‑end performance budgets and measuring CLS.",
-        url: "#"
-      },
-      {
-        id: 4,
-        title: "Adding tags & search",
-        date: "2025-10-02",
-        tags: ["tutorial","updates"],
-        excerpt: "We added simple client‑side filtering by tag and a search box.",
-        url: "#"
-      },
-      {
-        id: 5,
-        title: "Tiny accessibility checklist",
-        date: "2025-06-15",
-        tags: ["notes"],
-        excerpt: "Landmarks, focus order, labels, color contrast. Start here.",
-        url: "#"
-      },
-      {
-        id: 6,
-        title: "Embed code blocks with copy buttons",
-        date: "2025-09-13",
-        tags: ["tutorial"],
-        excerpt: "A simple progressive‑enhancement approach for code snippets.",
+        title: "Starting work on the MVP.",
+        date: "2025-11-13",
+        tags: ["updates"],
+        excerpt: "Here we could write about the MVP as we start working on it.",
         url: "#"
       }
     ];
