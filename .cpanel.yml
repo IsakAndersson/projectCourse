@@ -1,5 +1,16 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/silversu/public_html/
-    - /bin/cp -R images $DEPLOYPATH
+    # 1) Set your deploy targets
+    - export WEBROOT=/home/silversu/public_html
+    - export GROUPDIR=$WEBROOT/group
+
+    # 2) Make sure target dirs exist
+    - /bin/mkdir -p $GROUPDIR
+
+    # 3) Deploy the splash page (from repo's ./splash/ to site root)
+    #    --delete keeps the server in sync with the repo
+    - /usr/bin/rsync -a --delete --exclude='.git*' splash/ $WEBROOT/
+
+    # 4) Deploy the /group page (from repo's ./group/ to /group)
+    - /usr/bin/rsync -a --delete --exclude='.git*' group/ $GROUPDIR/
